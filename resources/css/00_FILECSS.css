@@ -1,0 +1,62 @@
+a{
+    text-decoration: none;
+}
+
+/* nav-bar */
+.navbar-custom{
+    z-index: 1;
+}
+
+
+/* articolo */
+.evento-custom{
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 4vw;
+    font-weight: 600;
+    color: var(--black);
+    padding: 40px 0px 0px 20px;
+}
+
+.linea{
+    border: none;
+    height: 1px;
+    background-color: white;
+    width: 100%;
+
+}
+
+.articolotitle-custom{
+    padding: 2% 0% 2% 4%;
+}
+.titlearticolo{
+    font-family: "Google Sans Flex", sans-serif;
+    font-size:40px;
+    font-weight: 600;
+    color: white;
+}
+
+.sottotitlearticolo{
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+}
+
+.articolotext-custom{
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h4{
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    margin: 0%;
+}
+

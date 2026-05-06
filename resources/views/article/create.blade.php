@@ -13,7 +13,7 @@
 
     <!-- codice per mostrare errori di validazioni -->
 
-    <x-display-errors></x-display-errors>
+    <x-display-message></x-display-message>
 
 <!-- Create Post Form -->
 

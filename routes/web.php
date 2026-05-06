@@ -19,4 +19,4 @@ Route::get('/article/edit/{article}', [ArticleController::class, 'edit'])->name(
 // rotta parametrica update
 Route::put('/article/update/{article}',[ArticleController::class, 'update'])->name('article.update')->middleware('auth');
 //rotta parametirca destroy
-Route::post('/article/destroy/{article}', [ArticleController::class, 'destroy'])->name('article.destroy')->middleware('auth');
+Route::delete('/article/destroy/{article}', [ArticleController::class, 'destroy'])->name('article.destroy')->middleware('auth');

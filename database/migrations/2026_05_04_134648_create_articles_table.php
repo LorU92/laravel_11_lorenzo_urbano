@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->text('description');
-            $table->string('img')->nullable();
+            // se l'utente non inserisce l'immagine inserirà questa di default
+            $table->string('img')->default('img/defaultimg.jpg');
             $table->timestamps();
         });
     }

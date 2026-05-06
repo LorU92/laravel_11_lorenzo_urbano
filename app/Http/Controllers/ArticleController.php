@@ -38,28 +38,28 @@ class ArticleController extends Controller
         $_subtitle = $request->input('subtitle');
         $_description = $request->input('description');
         
-        // VALIDAZIONE 
-        // QUUESTO PROVEDIMENTO E' UTILE PER LE IMMAGINI MA PER IL RESTO DEI DATI DOBBIAMO INTERVENIRE SU REQUEST DI LARAVEL CASTOMIZZANDOLO 
-        //(php artisan make:request ProductRequest)
-            // se l'utente non passa nulla diamo un valore di defaul a $img
-            $_img = null;
+    
+        // METODO 2 MASS ASSIGNMENT + CONTROLLO SE L'UTENTE HA PASSATO L'IMMAGINE O NO
+                // creo l'articolo indipendentemente se l'utente ha passato l'immagine oppure no poi..
+                //MASS ASSIGNMENT
+                $article = Article::create([
+                    'title' => $_title,
+                    'subtitle' => $_subtitle,
+                    'description' => $_description,
+                    // 'img' => $_img
+                    ]);
+                // fino a qui l'immagine dell'articolo è quella di default inserita nel model
 
-            // se assegna a $img un valore l'utente  allo $img viene popolato
-            if ($request->file('img')){
-                $_img = $request
-                    ->file('img') //cattura upload 
-                    ->store('img', 'public'); // salva il file nel percorso 'storage/app/public/img'
-            }
-            
-
-        // MASS ASSIGNMENT
-        // aasegniamo i valori del form alle chevi del metod
-        Article::create([
-                'title' => $_title,
-                'subtitle' => $_subtitle,
-                'description' => $_description,
-                'img' => $_img
-        ]);
+                // .. mi chiedo poi l'utente mi ha passato l'immagine?
+                // se si - mi cicla l'if 
+                    if($request->file('img')){
+                        // devo sovrascrivere l'immagine di default con quella passata dall'utente
+                        // salviamo in una variabile che risulta essere quella di default
+                        $article->img = $request->file('img')->store('img', 'public');
+                        // salvami l'immagine nel database
+                        // in questo modo sovrascrivo il defeault inserito nel metod
+                        $article->save();
+                    }
 
         // ritorna alla pagina di create con un messaggio di successo
         return redirect()->back()->with('message', 'articolo inserito con successo');
@@ -98,7 +98,7 @@ class ArticleController extends Controller
         ]);
             
             // VALIDAZIONE 
-                // se assegna a $img un valore l'utente  allo $img viene popolato
+                // se assegna a $img un valore l'utente allo $img viene popolato
                 if ($request->file('img')){
                     $_img = $request
                         ->file('img') //cattura upload 

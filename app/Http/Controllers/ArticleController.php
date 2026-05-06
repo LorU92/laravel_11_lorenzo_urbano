@@ -46,7 +46,7 @@ class ArticleController extends Controller
                     'title' => $_title,
                     'subtitle' => $_subtitle,
                     'description' => $_description,
-                    // 'img' => $_img
+
                     ]);
                 // fino a qui l'immagine dell'articolo è quella di default inserita nel model
 
@@ -55,17 +55,16 @@ class ArticleController extends Controller
                     if($request->file('img')){
                         // devo sovrascrivere l'immagine di default con quella passata dall'utente
                         // salviamo in una variabile che risulta essere quella di default
-                        $article->img = $request->file('img')->store('img', 'public');
+                        $article->img = $request->file('img')->store('img', 'public'); //salva l'immagine nel percorso 'storage/app/public/img' e ritorna il path da salvare nel database
                         // salvami l'immagine nel database
                         // in questo modo sovrascrivo il defeault inserito nel metod
                         $article->save();
                     }
 
         // ritorna alla pagina di create con un messaggio di successo
-        return redirect()->back()->with('message', 'articolo inserito con successo');
+        return redirect(route('article.index'))->with('message', 'articolo inserito con successo');
 
     }
-
 
     /**
      * Display the specified resource.
@@ -88,25 +87,26 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
+        
+        // se assegna a $img un valore l'utente allo $img viene popolato
+            if ($request->file('img')){
+                $_img = $request
+                        ->file('img') //cattura upload 
+                        ->store('img', 'public'); // salva il file nel percorso 'storage/app/public/img'
+            }else{
+                $_img = $article->img;
+            }
+
         // modifica l'articolo assegnando ai fillable del metodo i nuovi dati attraverso update() che accetta un array (come create())
         // Aggiorna i dati del request in store(request)
         $article->update([
             'title' => $request->input('title'),
             'subtitle' => $request->input('subtitle'),
-            'description' => $request->input('description')
-
+            'description' => $request->input('description'),
+            'img' => $_img
         ]);
             
-            // VALIDAZIONE 
-                // se assegna a $img un valore l'utente allo $img viene popolato
-                if ($request->file('img')){
-                    $_img = $request
-                        ->file('img') //cattura upload 
-                        ->store('img', 'public'); // salva il file nel percorso 'storage/app/public/img'
-                }else{
-                    $_img = $article->img;
-                }
-            
+           
             // ritorna alla pagina di index con un messaggio di successo
             return redirect(route('article.index'))->with('message', 'articolo modificato con successo');
     }

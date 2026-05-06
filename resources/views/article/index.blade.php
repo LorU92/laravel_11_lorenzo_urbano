@@ -9,6 +9,10 @@
         </div>
     </header>
     
+    <!-- codice per mostrare errori di validazioni -->
+
+    <x-display-message></x-display-message>
+
     <div class="container">
         <div class="row mt-5">
             @foreach($articles as $article)

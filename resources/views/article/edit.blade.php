@@ -27,9 +27,10 @@
                 method="POST"
                 {{-- cattura i dati complessi non più come stringa o numero ma come file in modo da poter inserire anche immagini o video --}}
                 enctype="multipart/form-data">
-                    @csrf
+                    
                     @method('PUT')
                     {{-- spoofing - da inserire all'interno del form --}}
+                    @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Titolo articolo</label>
                         <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="title" value="{{$article->title}}">
@@ -44,12 +45,12 @@
                     </div>
                     {{-- inseriamo immagine attuale per un anteprima. --}}
                     <div class="mb-3">
-                        <label for="img" class="form-label">Inserisci immagine</label>
-                        <input type="file" class="form-control" id="img" aria-describedby="emailHelp" name="img">
-                    </div>
-                    <div class="mb-3">
                         <span class="form-label">Immagine attuale</span>
                         <img src="{{Storage::url($article->img)}}" alt="nome" width="600" class="img-fluid mx-auto d-block mt-2">
+                    </div>
+                    <div class="mb-3">
+                        <label for="img" class="form-label">Inserisci immagine</label>
+                        <input type="file" class="form-control" id="img" aria-describedby="emailHelp" name="img">
                     </div>
                     <button type="submit" class="btn btn-primary">Modifica Articolo</button>
                 </form>

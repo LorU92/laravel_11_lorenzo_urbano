@@ -15,7 +15,7 @@ class ArticleController extends Controller
     {
         $articles = Article::all(); 
         // recupera tutti gli articoli e salva in una colleizone
-        return view('articles.index', compact('articles') //in compact passare la chiave
+        return view('article.index', compact('articles') //in compact passare la chiave
         // ['articles' => $articles]
         );
     }
@@ -25,7 +25,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('article.create');
     }
 
     /**
@@ -61,6 +61,7 @@ class ArticleController extends Controller
                 'img' => $_img
         ]);
 
+        // ritorna alla pagina di create con un messaggio di successo
         return redirect()->back()->with('message', 'articolo inserito con successo');
 
     }
@@ -71,7 +72,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        return view('article.show', compact('article'));
     }
 
     /**
@@ -79,7 +80,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
 
     /**
@@ -87,7 +88,27 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        // modifica l'articolo assegnando ai fillable del metodo i nuovi dati attraverso update() che accetta un array (come create())
+        // Aggiorna i dati del request in store(request)
+        $article->update([
+            'title' => $request->input('title'),
+            'subtitle' => $request->input('subtitle'),
+            'description' => $request->input('description')
+
+        ]);
+            
+            // VALIDAZIONE 
+                // se assegna a $img un valore l'utente  allo $img viene popolato
+                if ($request->file('img')){
+                    $_img = $request
+                        ->file('img') //cattura upload 
+                        ->store('img', 'public'); // salva il file nel percorso 'storage/app/public/img'
+                }else{
+                    $_img = $article->img;
+                }
+            
+            // ritorna alla pagina di index con un messaggio di successo
+            return redirect(route('article.index'))->with('message', 'articolo modificato con successo');
     }
 
     /**
@@ -95,6 +116,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect(route('article.index'))->with('message', 'articolo eliminato con successo');
     }
 }

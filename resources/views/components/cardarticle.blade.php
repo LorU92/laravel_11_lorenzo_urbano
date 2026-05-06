@@ -8,7 +8,19 @@
                     <p class="card-text">{{\Illuminate\Support\Str::limit($article->description), 400}}</p> 
                     {{-- dettaglio articolo  --}}
                     {{-- con compact indico tutto l'articolo ma si prendereà solo id --}}
-                    <a href="{{route('article.show', compact('article'))}}" class="btn btn-primary">Leggi tutto</a>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{{route('article.show', compact('article'))}}" class="btn btn-primary p-1">Leggi tutto</a>
+                        {{-- edit --}}
+                        <a href="{{route('article.edit', compact('article'))}}" class="btn btn-secondary p-1">Modifica</a>
+                        {{-- delete --}}
+                        <form 
+                        action="{{route('article.destroy', compact('article'))}}" 
+                        method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-secondary p-1">Elimina</button>
+                        </form>
+                    </div>
                 </div>
             </div>          
             </div>

@@ -13,3 +13,10 @@ Route::get('/article/create', [ArticleController::class, 'create'])->name('artic
 Route::post('/article/create', [ArticleController::class, 'store'])->name('article.store')->middleware('auth');
 
 Route::get('/article/show/{article}', [ArticleController::class, 'show'])->name('article.show');
+
+// rotta parametrica edit articolo, solo per utenti autenticati
+Route::get('/article/edit/{article}', [ArticleController::class, 'edit'])->name('article.edit')->middleware('auth');    
+// rotta parametrica update
+Route::put('/article/update/{article}',[ArticleController::class, 'update'])->name('article.update')->middleware('auth');
+//rotta parametirca destroy
+Route::post('/article/destroy/{article}', [ArticleController::class, 'destroy'])->name('article.destroy')->middleware('auth');

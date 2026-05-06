@@ -15,7 +15,7 @@
                 <div class="linea mt-5"></div>
                 <div class="col-12 col-md-4 articolotitle-custom">
                     <div class="card-custom-img my-5">
-                        <img src="{{Storage::url($article->img)}}" class="card-img-top rounded-4" alt="...">
+                        <img src="{{ $article->img == 'img/default.jpg' ? asset($article->img) : Storage::url($article->img) }}" class="card-img-top rounded-4" alt="...">
                     </div>
                 </div>
                 <div class="col-12 col-md-6 articolotext-custom my-5">

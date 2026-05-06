@@ -46,7 +46,7 @@
                     {{-- inseriamo immagine attuale per un anteprima. --}}
                     <div class="mb-3">
                         <span class="form-label">Immagine attuale</span>
-                        <img src="{{Storage::url($article->img)}}" alt="nome" width="600" class="img-fluid mx-auto d-block mt-2">
+                        <img src="{{ $article->img == 'img/default.jpg' ? asset($article->img) : Storage::url($article->img) }}" alt="nome" width="600" class="img-fluid mx-auto d-block mt-2">
                     </div>
                     <div class="mb-3">
                         <label for="img" class="form-label">Inserisci immagine</label>
